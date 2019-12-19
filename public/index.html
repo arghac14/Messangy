@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <link rel="stylesheet" href="/css/index.css">
+  <script src="./js/index.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <title>Chatroom</title>
+
+  <style>
+  body{
+      margin-top: 3px;
+  }
+  #chatArea{
+    display: none;
+  }
+  </style>
+  
+<script>
+$(function(){
+    var socket= io.connect();
+    var $messageForm = $('#messageForm');
+    var $message=$('#message');
+    var $chat=$('#chat');
+  
+    var $chatArea=$('#chatArea')
+
+    var $userFormArea=$('#signinFormSection')
+    var $userForm=$('#userForm')
+  
+    var $username=$('#username')
+
+    var $counter=$('.counter')
+
+    $messageForm.submit(function(e){
+      e.preventDefault();
+      console.log("inside messageform")
+      socket.emit('send message', $message.val());
+      $message.val('');
+    })
+
+    socket.on('new message', function(data){
+      $chat.append('<br><div class="container lighter" style="background-color: rgba(0,0,0,0.1);"><img src="/images/profile0.jpg" alt="Avatar"><p class="profile-name">'+data.user+'</p><div class="messageContent">'+data.msg+'</div><span class="time-right">11:00</span></div>');
+    })
+
+    $userForm.submit(function(e){
+      e.preventDefault();
+      console.log("outside if")
+      socket.emit('new user',$username.val(),function(data){
+        if(data){
+          console.log('inside if')
+          $userFormArea.hide()
+          $chatArea.show()
+        }
+      })
+      $username.val('');
+    })
+
+    socket.on('get users', function(data){
+      // var html='';
+      // for(i=0; i< data.length; i++){
+      //   html+='<li class="list-group-item">'+data[i]+'</li>'
+      // }
+      var c=0;
+      for (i=0;i<data.length;i++){
+        c+=1
+      }
+      $counter.html(c)
+    })
+
+    function down(){
+      window.close()
+} 
+});
+</script>
+
+</head>
+<body>
+  <!--Authentication part-->
+  <div id="signinFormSection" class="row">
+  <h1 style="text-align: center;">Welcome to Messangy!</h1>
+  
+    <form id="userForm">
+      <label>Entet your Display name:</label>
+      <input id="username" type="text">
+      <input type="submit" style="width: 97%;padding-left: 20px;background-color: white;border-radius:10px" placeholder="Type your message..."/>
+                    
+    </form>
+  </div>
+  <!--Chatting Area-->
+  
+    <div id="chatArea">
+    <!-- Navbar-->
+    <nav>
+        <div class="nav-wrapper" style="background-color:#10ac98">
+          
+          <a href="#" class="brand-logo left" style="text-decoration: none"> Messangy! </a>
+          <a class="brand-logo center" id="users" style="text-decoration: none"><i class="fa fa-users"></i> <span class="counter"></span> <i class="fa fa-circle fa-1x" style="color: rgb(76, 218, 21);size: 10px;"></i></a>
+          
+          <ul id="nav-mobile" class="right">
+            <li><a href="" style="text-decoration: none;">Log out</a></li>
+            
+        </ul>
+       
+        </div>
+      </nav>
+    <!--Navbar end-->
+
+    <!--Chatbox-->
+    <div class="chat" id="chat"></div>
+    
+<!--       
+      <div class="container darker">
+        <img src="/images/profile0.jpg" alt="Avatar" class="right">
+        <p class="profile-name">Arghadip</p>
+        <p>Hey! I'm fine. Thanks for asking!</p>
+        <span class="time-left">11:01</span>
+      </div> -->
+      <!--</div>-->
+      <!--Chatbox end-->
+
+      <!--Typing box-->
+      
+      <div class="chat" style="position:fixed;bottom: 0px;width: 100%;">
+          <!-- <div class="chat-message clearfix"-->
+        
+              <form id="messageForm">
+                  <!-- <input type="submit"value="Find" style="float: right" > -->
+                  <button class="btn btn-default" type="submit" style="float: right;height: 50px;width:50px;border-radius: 50%;"><i class="material-icons right">send</i></button>
+                  <div style="overflow: hidden; padding-right: .5em;">
+                    <input type="text" style="width: 97%;padding-left: 20px;background-color: white;border-radius:10px" placeholder="Type your message..." id="message"></textarea>
+                    <!-- <input type="submit" /> -->
+                  </div>​
+              </form> 
+      </div>
+    </div>    
+      <!--Typing box end-->
+    
+</body> 
+</html>
