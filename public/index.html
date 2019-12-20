@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+ 
   <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -19,7 +19,8 @@
   <link rel="stylesheet" href="/css/index.css">
   <script src="./js/index.js"></script>
   <script src="/socket.io/socket.io.js"></script>
-  <title>Chatroom</title>
+  <title>Messangy!</title>
+  <link rel="icon" href="https://static.thenounproject.com/png/27709-200.png" style="border-radius: 50%">
 
   <style>
   body{
@@ -27,6 +28,9 @@
   }
   #chatArea{
     display: none;
+  }
+  #hover:hover{
+    transform: scale(1.05);
   }
   </style>
   
@@ -46,15 +50,18 @@ $(function(){
 
     var $counter=$('.counter')
 
+    var colors = ['#E3921C','#1CE33D','#1C9EE3','#03aa57ec'];
+    var random_color = colors[Math.floor(Math.random() * colors.length)];
+
     $messageForm.submit(function(e){
       e.preventDefault();
       console.log("inside messageform")
       socket.emit('send message', $message.val());
       $message.val('');
     })
-
+   
     socket.on('new message', function(data){
-      $chat.append('<br><div class="container lighter" style="background-color: rgba(0,0,0,0.1);"><img src="/images/profile0.jpg" alt="Avatar"><p class="profile-name">'+data.user+'</p><div class="messageContent">'+data.msg+'</div><span class="time-right">11:00</span></div>');
+      $chat.append('<br><div class="container lighter" style="border-radius:0px 20px 0px 20px;background-color: white;"><p class="profile-name" style="color:'+colors[Math.floor(Math.random() * colors.length)]+'"><b>'+data.user+'</b></p><p class="messageContent">'+data.msg+'</p><span class="time" style="color:grey;float:right">'+new Date(Date.now()).getHours() + ":" +new Date(Date.now()).getMinutes() +'</span></div>');
     })
 
     $userForm.submit(function(e){
@@ -80,6 +87,8 @@ $(function(){
         c+=1
       }
       $counter.html(c)
+      // $chat.append('<br><div style="float:center;text-align:center;background-color:silver;color:grey;width:20%;border-radius:10px 10px 10px 10px">'+data.user+' joined the chat</div>');
+    
     })
 
     function down(){
@@ -89,17 +98,21 @@ $(function(){
 </script>
 
 </head>
-<body>
+<body style="background-image: url(https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png);">
   <!--Authentication part-->
   <div id="signinFormSection" class="row">
-  <h1 style="text-align: center;">Welcome to Messangy!</h1>
+  <h1 style="text-align: center;color: #03aa57ec;">Welcome to Messangy!</h1>
   
-    <form id="userForm">
-      <label>Entet your Display name:</label>
-      <input id="username" type="text">
-      <input type="submit" style="width: 97%;padding-left: 20px;background-color: white;border-radius:10px" placeholder="Type your message..."/>
+    <form id="userForm" style="text-align: center;">
+      <label style="color: #0c9c89;font-size: 17px;">Enter Display Name:</label>
+      <input id="username" type="text" style="width: 25%; color: rgb(45, 46, 45);">
+      <br><br><input id="hover" type="submit" style="text-align: center;width:35%;color: white;background-color:#10ac98;border-radius:10px;font-size: 20px;" value="Sign In" placeholder="Type your name..."/>
                     
     </form>
+    <br><br><br><br><div id="credit" style="text-align: center; color: #03aa57ec;">
+    
+      <h5>By <a href="https://arghac14.github.io" style="text-decoration: none;"><b>arghac14<b></b></a></h5>
+    </div>
   </div>
   <!--Chatting Area-->
   
