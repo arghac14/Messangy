@@ -48,7 +48,7 @@ $(function(){
   
     var $username=$('#username')
 
-    var $counter=$('.counter')
+    var $counter=$('#counter')
 
     var colors = ['#E3921C','#1CE33D','#1C9EE3','#03aa57ec'];
     var random_color = colors[Math.floor(Math.random() * colors.length)];
@@ -105,7 +105,7 @@ $(function(){
   
     <form id="userForm" style="text-align: center;">
       <label style="color: #0c9c89;font-size: 17px;">Enter Display Name:</label>
-      <input id="username" type="text" style="width: 25%; color: rgb(45, 46, 45);">
+      <input id="username" type="text" style="width: 25%; color: rgb(45, 46, 45); background-color: none;">
       <br><br><input id="hover" type="submit" style="text-align: center;width:35%;color: white;background-color:#10ac98;border-radius:10px;font-size: 20px;" value="Sign In" placeholder="Type your name..."/>
                     
     </form>
@@ -118,23 +118,30 @@ $(function(){
   
     <div id="chatArea">
     <!-- Navbar-->
-    <nav>
+    <nav style="position: fixed;">
         <div class="nav-wrapper" style="background-color:#10ac98">
           
           <a href="#" class="brand-logo left" style="text-decoration: none"> Messangy! </a>
-          <a class="brand-logo center" id="users" style="text-decoration: none"><i class="fa fa-users"></i> <span class="counter"></span> <i class="fa fa-circle fa-1x" style="color: rgb(76, 218, 21);size: 10px;"></i></a>
           
           <ul id="nav-mobile" class="right">
             <li><a href="" style="text-decoration: none;">Log out</a></li>
             
-        </ul>
+        </ul><br>
+
+         
        
         </div>
-      </nav>
+      </nav><br><br><br>
+      <div style="text-align: center;">
+      <a class="brand-logo left" id="users" style="background-color: #10ac98;width: 100%;height:15%;font-size: 20px;text-decoration: none"><i class="fa fa-users" style="color: white;"></i> <span id="counter" style="color: white;"></span> <i class="fa fa-circle fa-1x" style="color: rgb(76, 218, 21);size: 10px;"></i></a>
+      </div>
     <!--Navbar end-->
 
     <!--Chatbox-->
-    <div class="chat" id="chat"></div>
+    <br><br>
+    <div style="overflow-x: hidden;"><div class="chat" id="chat"></div></div>
+    <br><br>
+    <br><br>
     
 <!--       
       <div class="container darker">
@@ -147,8 +154,8 @@ $(function(){
       <!--Chatbox end-->
 
       <!--Typing box-->
-      
-      <div class="chat" style="position:fixed;bottom: 0px;width: 100%;">
+
+      <div class="chat" style="position:fixed;bottom:0px;width: 100%;">
           <!-- <div class="chat-message clearfix"-->
         
               <form id="messageForm">

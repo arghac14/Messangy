@@ -16,8 +16,9 @@
   "author": "Arghadip Chakraborty (arghac14)",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "*",
-    "express": "*"
+    "express": "*",
+    "heroku": "^7.35.1",
+    "socket.io": "*"
   },
   "bugs": {
     "url": "https://github.com/arghac14/Messangy/issues"
