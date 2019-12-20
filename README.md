@@ -6,5 +6,5 @@ A chatting app for multiple users built using Node,js and WebSocket.
 ## Snapshots:
 
 ![](https://github.com/arghac14/Messangy/blob/master/Snapshots/Capture0.JPG)
-![](https://github.com/arghac14/Messangy/blob/master/Snapshots/Capture1.JPG)
+![](https://github.com/arghac14/Messangy/blob/master/Snapshots/Capture3.JPG)
 ![](https://github.com/arghac14/Messangy/blob/master/Snapshots/Capture2.JPG)
