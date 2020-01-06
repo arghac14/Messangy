@@ -1,7 +1,7 @@
 # Messangy
-A chatting app built using Node.js and Socket.io supporting real time communication between multiple users.
+A chatting app built using Node.js and WebSockets supporting real time communication between multiple users.
 
-## Live Demo: [Messangy](https://messangy.herokuapp.com)
+## Live Demo: [https://messangy.herokuapp.com](https://messangy.herokuapp.com)
 
 ## Snapshots:
 
